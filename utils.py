@@ -1,4 +1,5 @@
 import os
+import jieba
 import numpy as np
 import h5py
 import json
@@ -40,11 +41,13 @@ def create_input_files(dataset, karpathy_json_path, image_folder, captions_per_i
 
     for img in data['images']:
         captions = []
-        for c in img['sentences']:
+        # use jieba get tokens
+        tokens = jieba.tokenize(img['caption'])
+        for c in tokens:
             # Update word frequency
-            word_freq.update(c['tokens'])
-            if len(c['tokens']) <= max_len:
-                captions.append(c['tokens'])
+            word_freq.update(c[0])
+            if len(c[0]) <= max_len:
+                captions.append(c[0])
 
         if len(captions) == 0:
             continue
