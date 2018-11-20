@@ -39,7 +39,7 @@ def create_input_files(dataset, karpathy_json_path, image_folder, captions_per_i
     test_image_captions = []
     word_freq = Counter()
 
-    for img in data['images']:
+    for img in data:
         captions = []
         # use jieba get tokens
         tokens = jieba.tokenize(img['caption'])
